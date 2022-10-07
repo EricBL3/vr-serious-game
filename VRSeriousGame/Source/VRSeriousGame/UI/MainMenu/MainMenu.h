@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Components/WidgetComponent.h"
+#include "MenuActions.h"
 #include "MainMenu.generated.h"
 
 UCLASS()
@@ -19,8 +21,11 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
+private:	
+	// Components
+	UPROPERTY(VisibleAnywhere)
+	USceneComponent* Root;
 
+	UPROPERTY(VisibleAnywhere)
+	UWidgetComponent* MenuActions;
 };

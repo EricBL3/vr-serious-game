@@ -16,24 +16,4 @@ UCLASS()
 class VRSERIOUSGAME_API UMenuActions : public UUserWidget
 {
 	GENERATED_BODY()
-public:
-	bool Initialize() override;
-
-protected:
-	//Widgets
-	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, meta = (BindWidget))
-	UTextBlock* UserNameRequired;
-
-	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, meta = (BindWidget))
-	UButton* PlayBtn;
-
-	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, meta = (BindWidget))
-	UEditableTextBox* UserName;
-	
-private:
-	UFUNCTION()
-	void PlayBtnClicked();
-
-	UFUNCTION()
-	void UserNameEntered();
 };

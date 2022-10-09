@@ -13,6 +13,9 @@ AMainGame::AMainGame()
 
 	ChooseQuestions = CreateDefaultSubobject<UWidgetComponent>(TEXT("ChooseQuestions"));
 	ChooseQuestions->SetupAttachment(GetRootComponent());
+
+	QuestionUI = CreateDefaultSubobject<UWidgetComponent>(TEXT("QuestionUI"));
+	QuestionUI->SetupAttachment(GetRootComponent());
 }
 
 // Called when the game starts or when spawned

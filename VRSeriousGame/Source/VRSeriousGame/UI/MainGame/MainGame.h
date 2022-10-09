@@ -6,6 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "Components/WidgetComponent.h"
 #include "ChooseQuestion.h"
+#include "QuestionUI.h"
 #include "MainGame.generated.h"
 
 UCLASS()
@@ -21,12 +22,16 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	//Components
+	UPROPERTY(VisibleAnywhere, BlueprintReadonly)
+		UWidgetComponent* ChooseQuestions;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadonly)
+		UWidgetComponent* QuestionUI;
+
 private:
 	// Components
 	UPROPERTY(VisibleAnywhere)
 		USceneComponent* Root;
-
-	UPROPERTY(VisibleAnywhere)
-		UWidgetComponent* ChooseQuestions;
 
 };

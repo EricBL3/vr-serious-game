@@ -7,6 +7,7 @@
 #include "Components/WidgetComponent.h"
 #include "ChooseQuestion.h"
 #include "QuestionUI.h"
+#include "../../Question.h"
 #include "MainGame.generated.h"
 
 UCLASS()
@@ -33,5 +34,12 @@ private:
 	// Components
 	UPROPERTY(VisibleAnywhere)
 		USceneComponent* Root;
+
+	//State
+	TArray<UQuestion*> Questions;
+
+
+	//Functions
+	void CreateQuestion(int32 num);
 
 };

@@ -22,6 +22,19 @@ AMainGame::AMainGame()
 void AMainGame::BeginPlay()
 {
 	Super::BeginPlay();
+
+	Questions.Empty();
+
+	for (int32 i = 1; i <= 10; i++)
+	{
+		CreateQuestion(i);
+	}
 	
+}
+
+void AMainGame::CreateQuestion(int32 num)
+{
+	UQuestion* NewQuestion = NewObject<UQuestion>(this, UQuestion::StaticClass(), FName("UQuestion"));
+	Questions.Add(NewQuestion);
 }
 

@@ -8,6 +8,7 @@
 #include "ChooseQuestion.h"
 #include "QuestionUI.h"
 #include "../../Question.h"
+#include "Engine/Texture2D.h"
 #include "MainGame.generated.h"
 
 UCLASS()
@@ -18,6 +19,9 @@ class VRSERIOUSGAME_API AMainGame : public AActor
 public:	
 	// Sets default values for this actor's properties
 	AMainGame();
+
+	UFUNCTION(BlueprintCallable)
+	void LoadQuestion(int32 num);
 
 protected:
 	// Called when the game starts or when spawned
@@ -30,6 +34,12 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadonly)
 		UWidgetComponent* QuestionUI;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+		TArray<FVector> QuestionLocations;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+		TArray<FVector> QuestionRotations;
+
 private:
 	// Components
 	UPROPERTY(VisibleAnywhere)
@@ -37,6 +47,12 @@ private:
 
 	//State
 	TArray<UQuestion*> Questions;
+
+	UPROPERTY(EditDefaultsOnly)
+	TArray<UTexture2D*> MiniMapImages;
+
+	UPROPERTY(EditDefaultsOnly)
+	TArray<UTexture2D*> ReferenceImages;
 
 
 	//Functions

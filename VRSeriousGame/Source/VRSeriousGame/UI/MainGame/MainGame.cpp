@@ -38,3 +38,18 @@ void AMainGame::CreateQuestion(int32 num)
 	Questions.Add(NewQuestion);
 }
 
+void AMainGame::LoadQuestion(int32 num)
+{
+	ChooseQuestions->GetUserWidgetObject()->SetIsEnabled(false);
+	ChooseQuestions->GetUserWidgetObject()->SetVisibility(ESlateVisibility::Hidden);
+
+	UQuestionUI* Question = Cast<UQuestionUI>(QuestionUI->GetUserWidgetObject());
+	Question->QuestionTxt->Text = FText::FromString(Questions[num]->GetQuestionTxt());
+	Question->PossibleAnswers->Text = FText::FromString(Questions[num]->GetPossibleAnswers());
+	Question->AnswerReference->Text = FText::FromString(Questions[num]->GetReferenceTxt());
+	Question->MiniMapImage->SetBrushFromTexture(MiniMapImages[num - 1]);
+	Question->ReferenceImage->SetBrushFromTexture(ReferenceImages[num - 1]);
+
+	QuestionUI->GetUserWidgetObject()->SetIsEnabled(true);
+	QuestionUI->GetUserWidgetObject()->SetVisibility(ESlateVisibility::Visible);
+}

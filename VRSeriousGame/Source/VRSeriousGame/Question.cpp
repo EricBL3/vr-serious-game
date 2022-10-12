@@ -21,9 +21,8 @@ void UQuestion::SetupQuestion(int32 num)
 	//Setup question data
 	int x = CalculateX();
 	int y = CalculateY();
+	float h;
 	FString wallType;
-	//TODO: Change value per question.
-	Value = 10;
 	switch (QuestionNum)
 	{
 	case 1:
@@ -39,6 +38,7 @@ void UQuestion::SetupQuestion(int32 num)
 		{
 			Answer = QuestionAnswer::Yes;
 		}
+		Value = 5;
 		break;
 	case 2:
 		QuestionTxt = "Si la abertura de la derecha tiene una dimensión de " + FString::FromInt(x) + " cm y su estructura es de Tipo I"
@@ -54,6 +54,7 @@ void UQuestion::SetupQuestion(int32 num)
 		{
 			Answer = QuestionAnswer::No;
 		}
+		Value = 5;
 		break;
 	case 3:
 		QuestionTxt = "Si la altura del pretil es de " + FString::FromInt(x) + " cm, ¿Es correcto que lleve una dala?";
@@ -67,6 +68,7 @@ void UQuestion::SetupQuestion(int32 num)
 		{
 			Answer = QuestionAnswer::No;
 		}
+		Value = 10;
 		break;
 	case 4:
 		if (x == 1)
@@ -83,6 +85,7 @@ void UQuestion::SetupQuestion(int32 num)
 		PossibleAnswers = "";
 		ReferenceTxt = "5.1.4 Espesor y relación altura a espesor de los muros\n En estructuras Tipo I, el espesor de los muros de "
 			"mampostería, t, no será menor que 100 mm, ni que 120 mm en estructuras Tipo II.";
+		Value = 10;
 		break;
 	case 5:
 		QuestionTxt = "¿Es correcto que los castillos sólo van en los extremos de los muros?";
@@ -90,14 +93,24 @@ void UQuestion::SetupQuestion(int32 num)
 		ReferenceTxt = "5.1.1 a) Existirán castillos por lo menos en los extremos de los muros e intersecciones con otros muros y en "
 			"puntos intermedios del muro.";
 		Answer = QuestionAnswer::No;
+		Value = 10;
 		break;
 	case 6:
+		h = FMath::RandRange(2.5, 3.4);
 		QuestionTxt = "Si el muro mide " + FString::FromInt(x) + " m de longitud y la altura entrepiso es de " + FString::FromInt(y) +
 			", ¿Cuántos castillos deberían de colocarse en los pretiles?";
-		PossibleAnswers = "a.\t1\nb.\t2\nc.\t3\nd.\t4";
+		PossibleAnswers = "a.\t1.0\nb.\t2.0\nc.\t" + FString::SanitizeFloat(1.5 * h) + "\nd.\t4.0";
 		ReferenceTxt = "5.1.1 a) Existirán castillos a una separación no mayor que 1.5 H(altura de entrepiso) ni 4 m. Los pretiles o "
 			"parapetos deberán tener castillos con una separación no mayor que 4 m.";
-		//TODO: Calculate answer;
+		if (1.5 * h < 4)
+		{
+			Answer = QuestionAnswer::C;
+		}
+		else
+		{
+			Answer = QuestionAnswer::D;
+		}
+		Value = 15;
 		break;
 	case 7:
 		QuestionTxt = "Si el espesor del muro reforzado interiormente es de " + FString::FromInt(x) + " cm, ¿Cuánto tiene que medir la "
@@ -113,10 +126,11 @@ void UQuestion::SetupQuestion(int32 num)
 		{
 			Answer = QuestionAnswer::A;
 		}
+		Value = 15;
 		break;
 	case 8:
-		QuestionTxt = "Si la distancia entre los 2 muros reforzados interiormente es de " + FString::FromInt(x) + " m, ¿Cuántas barras de "
-			"refuerzo se deberán colocar?";
+		QuestionTxt = "Si la distancia entre los 2 muros reforzados interiormente es de " + FString::FromInt(x) + " m, ¿Cuántos pares de "
+			"refuerzo de celdas consecutivas con refuerzo se deberán colocar?";
 		PossibleAnswers = "a.\t1\nb.\t" + FString::FromInt(x) + "\nc.\t" + FString::FromInt(x / 3 + 1) + "\nd.\t" + FString::FromInt(x / 3 + 2);
 		ReferenceTxt = "6.1.2.2 Refuerzo en los extremos de muros\na) Deberá colocarse, por lo menos, una barra vertical o refuerzo con "
 			"resistencia a tensión equivalente, en cada una de dos celdas consecutivas, en todo extremo de muros, en las intersecciones "
@@ -129,6 +143,7 @@ void UQuestion::SetupQuestion(int32 num)
 		{
 			Answer = QuestionAnswer::D;
 		}
+		Value = 15;
 		break;
 	case 9:
 		QuestionTxt = "¿Cuál sería el mejor material para el muro no estructural (divisorio) de esta zona?";
@@ -136,6 +151,7 @@ void UQuestion::SetupQuestion(int32 num)
 		ReferenceTxt = "7.1 Pueden ser de mampostería confinada (Capítulo 5), reforzada interiormente (Capítulo 6), o de otros materiales "
 			"ligeros y cuya contribución a la resistencia y rigidez laterales sea poco significativa.";
 		Answer = QuestionAnswer::A;
+		Value = 5;
 		break;
 	case 10:
 		QuestionTxt = "Si la dala tiene una longitud de " + FString::FromInt(x) + " cm sobre un muro de espesor " + FString::FromInt(y) +
@@ -150,6 +166,7 @@ void UQuestion::SetupQuestion(int32 num)
 		{
 			Answer = QuestionAnswer::B;
 		}
+		Value = 10;
 		break;
 	}
 }
@@ -180,7 +197,7 @@ int32 UQuestion::CalculateX()
 		x = option == 1 ? 10 : option == 2 ? 12 : 15;
 		break;
 	case 8:
-		//TODO: calcular valores de pregunta 8
+		x = FMath::RandRange(5, 9);
 		break;
 	case 10:
 		x = FMath::RandRange(100, 300);

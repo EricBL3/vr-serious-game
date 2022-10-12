@@ -8,6 +8,7 @@
 #include "ChooseQuestion.h"
 #include "QuestionUI.h"
 #include "../../Question.h"
+#include "Engine/Texture2D.h"
 #include "MainGame.generated.h"
 
 UCLASS()
@@ -18,6 +19,9 @@ class VRSERIOUSGAME_API AMainGame : public AActor
 public:	
 	// Sets default values for this actor's properties
 	AMainGame();
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void UpdateTimerTxt();
 
 protected:
 	// Called when the game starts or when spawned
@@ -30,16 +34,47 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadonly)
 		UWidgetComponent* QuestionUI;
 
+	//State
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+		TArray<FVector> QuestionLocations;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+		TArray<FVector> QuestionRotations;
+
+	UPROPERTY(BlueprintReadOnly)
+		TArray<UQuestion*> Questions;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+		TArray<UTexture2D*> MiniMapImages;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+		TArray<UTexture2D*> ReferenceImages;
+
+	UPROPERTY(BlueprintReadOnly)
+	int32 CurrentScore;
+
+	UPROPERTY(BlueprintReadOnly)
+	int32 TotalScore;
+
+	UPROPERTY(BlueprintReadOnly)
+	FString CurrentTimeTxt;
+
+	//Functions
+	UFUNCTION(BlueprintCallable)
+	void AddScore(int32 val) { CurrentScore += val; }
+
 private:
 	// Components
 	UPROPERTY(VisibleAnywhere)
 		USceneComponent* Root;
 
 	//State
-	TArray<UQuestion*> Questions;
-
+	FTimerHandle MemberTimerHandle;
+	int32 CurrentSeconds;
+	int32 CurrentMinutes;
 
 	//Functions
 	void CreateQuestion(int32 num);
+	void UpdateTimer();
 
 };

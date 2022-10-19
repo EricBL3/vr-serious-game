@@ -34,6 +34,12 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadonly)
 		UWidgetComponent* QuestionUI;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadonly)
+		UWidgetComponent* MiniMapImageUI;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadonly)
+		UWidgetComponent* ReferenceImageUI;
+
 	//State
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 		TArray<FVector> QuestionLocations;

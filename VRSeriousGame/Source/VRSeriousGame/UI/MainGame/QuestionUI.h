@@ -34,12 +34,6 @@ public:
 	UTextBlock* AnswerReference;
 
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, meta = (BindWidget))
-	UImage* MiniMapImage;
-
-	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, meta = (BindWidget))
-	UImage* ReferenceImage;
-
-	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, meta = (BindWidget))
 	UHorizontalBox* SimpleAnswers;
 
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, meta = (BindWidget))

@@ -58,7 +58,7 @@ void UQuestion::SetupQuestion(int32 num)
 		Value = 5;
 		break;
 	case 2:
-		QuestionTxt = "Si la altura del pretil es de " + FString::FromInt(x) + " cm, ¿Es correcto que lleve una dala?";
+		QuestionTxt = "Si la altura del pretil es de " + FString::FromInt(x) + " cm, Es correcto que lleve una dala?";
 		PossibleAnswers = "";
 		ReferenceTxt = "5.1.1 b) Existiran dalas en la parte superior de pretiles o parapetos cuya altura sea superior a 500 mm";
 		if (x > 50)
@@ -98,7 +98,7 @@ void UQuestion::SetupQuestion(int32 num)
 		break;
 	case 5:
 		h = FMath::RandRange(2.5, 3.4);
-		QuestionTxt = "Si el muro mide " + FString::FromInt(x) + " m de longitud y la altura entrepiso es de " + FString::FromInt(y) +
+		QuestionTxt = "Si el muro mide " + FString::FromInt(x) + " m de longitud y la altura entrepiso es de " + FString::SanitizeFloat(h) +
 			", Cuantos castillos deberian de colocarse en los pretiles?";
 		PossibleAnswers = "a.\t1.0\nb.\t2.0\nc.\t" + FString::SanitizeFloat(1.5 * h) + "\nd.\t4.0";
 		ReferenceTxt = "5.1.1 a) Existiran castillos a una separacion no mayor que 1.5 H (altura de entrepiso) ni 4 m. Los pretiles o "
@@ -147,7 +147,7 @@ void UQuestion::SetupQuestion(int32 num)
 		Value = 15;
 		break;
 	case 8:
-		QuestionTxt = "¿Cual seria el mejor material para el muro no estructural (divisorio) de esta zona?";
+		QuestionTxt = "Cual seria el mejor material para el muro no estructural (divisorio) de esta zona?";
 		PossibleAnswers = "a.\tTablaroca\nb.\tMamposteria de roca\nc.\tMamposteria de bloc de concreto\nd.\t Mamposteria de tabique";
 		ReferenceTxt = "7.1 Pueden ser de mamposteria confinada (Capitulo 5), reforzada interiormente (Capitulo 6), o de otros materiales "
 			"ligeros y cuya contribucion a la resistencia y rigidez laterales sea poco significativa";

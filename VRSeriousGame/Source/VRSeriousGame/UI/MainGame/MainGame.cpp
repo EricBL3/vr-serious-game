@@ -17,6 +17,12 @@ AMainGame::AMainGame()
 	QuestionUI = CreateDefaultSubobject<UWidgetComponent>(TEXT("QuestionUI"));
 	QuestionUI->SetupAttachment(GetRootComponent());
 
+	MiniMapImageUI = CreateDefaultSubobject<UWidgetComponent>(TEXT("MiniMapImageUI"));
+	MiniMapImageUI->SetupAttachment(GetRootComponent());
+
+	ReferenceImageUI = CreateDefaultSubobject<UWidgetComponent>(TEXT("ReferenceImageUI"));
+	ReferenceImageUI->SetupAttachment(GetRootComponent());
+
 	CurrentTimeTxt = "00:00";
 }
 

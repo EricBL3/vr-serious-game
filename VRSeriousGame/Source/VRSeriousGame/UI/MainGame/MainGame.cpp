@@ -2,6 +2,7 @@
 
 
 #include "MainGame.h"
+#include "Misc/Paths.h"
 
 // Sets default values
 AMainGame::AMainGame()
@@ -49,6 +50,10 @@ void AMainGame::BeginPlay()
 	CurrentSeconds = 0;
 	CurrentMinutes = 0;
 	GetWorldTimerManager().SetTimer(MemberTimerHandle, this, &AMainGame::UpdateTimer, 1.0f, true);
+	FString InitialResult = "Matricula " + CurrentFilename + "\n" +
+		"Puntaje final, " + FString::FromInt(CurrentScore) + "/" + FString::FromInt(TotalScore) + "\n" +
+		"Numero de pregunta, Resultado, Puntaje obtenido, Tiempo\n";
+	SaveProgress(InitialResult, CurrentFilename);
 }
 
 void AMainGame::CreateQuestion(int32 num)
@@ -73,4 +78,48 @@ void AMainGame::UpdateTimer()
 
 	UE_LOG(LogTemp, Warning, TEXT("%s"), *CurrentTimeTxt);
 	UpdateTimerTxt();
+}
+
+bool AMainGame::SaveProgress(FString StudentResult, FString Filename = "prueba")
+{
+	FString SaveDirectory = FPaths::ProjectUserDir() + "\\ResultadosAlumnos";
+	UE_LOG(LogTemp, Warning, TEXT("project user dir: %s"), *FPaths::ProjectUserDir());
+
+	if (!IFileManager::Get().DirectoryExists(*SaveDirectory))
+	{
+		IFileManager::Get().MakeDirectory(*SaveDirectory);
+
+		//exit if dir couldn't be made
+		if (!IFileManager::Get().DirectoryExists(*SaveDirectory))
+		{
+			return false;
+		}
+	}
+
+	Filename += ".csv";
+	SaveDirectory += "\\";
+	SaveDirectory += Filename;
+	StudentResult += Progress;
+
+	return FFileHelper::SaveStringToFile(StudentResult, *SaveDirectory);
+}
+
+
+void AMainGame::SaveProgressOnQuestionAnswered(int32 QuestionNum)
+{
+	UQuestion* Question = Questions[QuestionNum];
+	Progress += FString::FromInt(QuestionNum + 1) + ", ";
+	if (Question->GetUserAnsweredCorrectly())
+	{
+		Progress += "Correcto, " + FString::FromInt(Question->GetValue()) + ", " + CurrentTimeTxt + "\n";
+	}
+	else
+	{
+		Progress += "Incorrecto, 0 puntos, " + CurrentTimeTxt + "\n";
+	}
+
+	FString StudentResult = "Matricula, " + CurrentFilename + "\n" +
+		"Puntaje final, " + FString::FromInt(CurrentScore) + "/" + FString::FromInt(TotalScore) + "\n" +
+		"Numero de pregunta, Resultado, Puntaje obtenido, Tiempo\n";
+	SaveProgress(StudentResult, CurrentFilename);
 }

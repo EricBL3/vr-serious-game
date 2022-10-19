@@ -9,6 +9,7 @@
 #include "QuestionUI.h"
 #include "../../Question.h"
 #include "Engine/Texture2D.h"
+#include "Misc/FileHelper.h"
 #include "MainGame.generated.h"
 
 UCLASS()
@@ -65,9 +66,15 @@ protected:
 	UPROPERTY(BlueprintReadOnly)
 	FString CurrentTimeTxt;
 
+	UPROPERTY(BlueprintReadWrite)
+	FString CurrentFilename;
+
 	//Functions
 	UFUNCTION(BlueprintCallable)
 	void AddScore(int32 val) { CurrentScore += val; }
+
+	UFUNCTION(BlueprintCallable)
+	void SaveProgressOnQuestionAnswered(int32 QuestionNum);
 
 private:
 	// Components
@@ -78,9 +85,10 @@ private:
 	FTimerHandle MemberTimerHandle;
 	int32 CurrentSeconds;
 	int32 CurrentMinutes;
+	FString Progress;
 
 	//Functions
 	void CreateQuestion(int32 num);
 	void UpdateTimer();
-
+	bool SaveProgress(FString StudentResult, FString Filename);
 };

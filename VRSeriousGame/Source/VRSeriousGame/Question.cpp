@@ -98,6 +98,7 @@ void UQuestion::SetupQuestion(int32 num)
 		break;
 	case 5:
 		h = FMath::RandRange(2.5, 3.4);
+		h = FMath::FloorToDouble(h * 100) / 100;
 		QuestionTxt = "Si el muro mide " + FString::FromInt(x) + " m de longitud y la altura entrepiso es de " + FString::SanitizeFloat(h) +
 			", Cuantos castillos deberian de colocarse en los pretiles?";
 		PossibleAnswers = "a.\t1.0\nb.\t2.0\nc.\t" + FString::SanitizeFloat(1.5 * h) + "\nd.\t4.0";

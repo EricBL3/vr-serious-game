@@ -7,8 +7,6 @@
 // Sets default values
 AMainGame::AMainGame()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
 	Root = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
 	SetRootComponent(Root);
 		
@@ -82,7 +80,7 @@ void AMainGame::UpdateTimer()
 
 bool AMainGame::SaveProgress(FString StudentResult, FString Filename = "prueba")
 {
-	FString SaveDirectory = FPaths::ProjectUserDir() + "\\ResultadosAlumnos";
+	FString SaveDirectory = FPaths::ProjectDir() + "\\ResultadosAlumnos";
 	UE_LOG(LogTemp, Warning, TEXT("project user dir: %s"), *FPaths::ProjectUserDir());
 
 	if (!IFileManager::Get().DirectoryExists(*SaveDirectory))
@@ -115,7 +113,7 @@ void AMainGame::SaveProgressOnQuestionAnswered(int32 QuestionNum)
 	}
 	else
 	{
-		Progress += "Incorrecto, 0 puntos, " + CurrentTimeTxt + "\n";
+		Progress += "Incorrecto, 0, " + CurrentTimeTxt + "\n";
 	}
 
 	FString StudentResult = "Matricula, " + CurrentFilename + "\n" +
